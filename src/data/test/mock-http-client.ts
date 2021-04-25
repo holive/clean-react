@@ -1,7 +1,4 @@
-import {
-  HttpPostClient,
-  HttpPostParams
-} from '@/data/protocols/http/http-post-client'
+import { HttpPostClient, HttpPostParams } from '@/data/protocols/http'
 import {
   HttpResponse,
   HttpStatusCode
