@@ -161,4 +161,13 @@ describe('', () => {
     simulateValidSubmit(sut)
     expect(authenticationSpy.callsCount).toBe(1)
   })
+
+  test("Shouldn't call submit if the form is invalid", () => {
+    const { sut, authenticationSpy } = makeSut({
+      validationError: faker.random.words()
+    })
+
+    fireEvent.submit(sut.getByTestId('form'))
+    expect(authenticationSpy.callsCount).toBe(0)
+  })
 })
