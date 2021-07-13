@@ -3,7 +3,7 @@ import { HttpPostClientSpy } from '@/data/test'
 import { HttpResponse, HttpStatusCode } from '@/data/protocols/http'
 import { UnexpectedError, InvalidCredentialsError } from '@/domain/errors'
 import { AuthenticationParams } from '@/domain/usecases/authentication'
-import { AccountModel } from '@/domain/usecases/models'
+import { AccountModel } from '@/domain/models'
 import { mockAccountModel, mockAuthentication } from '@/domain/test'
 import faker from 'faker'
 
