@@ -2,7 +2,7 @@ import { makeLoginValidation } from '@/presentation/pages/login/login-validation
 import { ValidationBuilder, ValidationComposite } from '@/validation/validators'
 
 describe('', () => {
-  test('Should make ValidationComposite with correct validations', () => {
+  test('Should make ValidationComposite with correct validations ', () => {
     const composite = makeLoginValidation()
     expect(composite).toEqual(
       new ValidationComposite([
