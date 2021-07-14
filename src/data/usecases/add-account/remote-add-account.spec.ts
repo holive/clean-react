@@ -5,7 +5,7 @@ import faker from 'faker'
 import { HttpResponse, HttpStatusCode } from '@/data/protocols/http'
 import { mockAddAccountParams } from '@/domain/test'
 import { RemoteAddAccount } from '@/data/usecases/add-account/remote-add-account'
-import { EmailInUseError } from '@/domain/errors'
+import { EmailInUseError, UnexpectedError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RemoteAddAccount
@@ -48,5 +48,12 @@ describe('RemoteAddAccount', () => {
     const { sut } = makeSut(null, { statusCode: HttpStatusCode.forbidden })
     const promise = sut.add(mockAddAccountParams())
     await expect(promise).rejects.toThrow(new EmailInUseError())
+  })
+
+  test('Should throw UnexpectedError if HttpPostClient is 400', async () => {
+    const { sut } = makeSut(null, { statusCode: HttpStatusCode.badRequest })
+    await expect(sut.add(mockAddAccountParams())).rejects.toThrow(
+      new UnexpectedError()
+    )
   })
 })
