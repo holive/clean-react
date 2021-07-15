@@ -110,6 +110,7 @@ const testElementText = (
 ): void => {
   expect(sut.getByTestId(fieldName).textContent).toBe(text)
 }
+
 const testButtonIsDisabled = (
   sut: RenderResult,
   fieldName: string,
