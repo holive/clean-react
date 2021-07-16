@@ -66,16 +66,6 @@ const simulateValidSubmit = async (
   await waitFor(() => form)
 }
 
-// const populatePasswordField = (
-//   sut: RenderResult,
-//   password = faker.internet.password()
-// ): void => {
-//   const passwordInput = sut.getByTestId('password')
-//   fireEvent.input(passwordInput, {
-//     target: { value: password }
-//   })
-// }
-
 const testElementExists = (sut: RenderResult, fieldName: string): void => {
   const el = sut.getByTestId(fieldName)
   expect(el).toBeTruthy()
