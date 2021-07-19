@@ -4,7 +4,8 @@ import {
   Footer,
   FormStatus,
   Input,
-  LoginHeader
+  LoginHeader,
+  SubmitButton
 } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-contex'
 import { Validation } from '@/presentation/protocols/validation'
@@ -25,6 +26,7 @@ const Signup: React.FC<Props> = ({
   const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: false,
     name: '',
     email: '',
     password: '',
@@ -37,15 +39,25 @@ const Signup: React.FC<Props> = ({
   })
 
   useEffect(() => {
+    const nameError = validation.validate('name', state.name)
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
+    const passwordConfirmationError = validation.validate(
+      'passwordConfirmation',
+      state.passwordConfirmation
+    )
+
     setState({
       ...state,
-      nameError: validation.validate('name', state.name),
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password),
-      passwordConfirmationError: validation.validate(
-        'passwordConfirmation',
-        state.passwordConfirmation
-      )
+      emailError,
+      nameError,
+      passwordError,
+      passwordConfirmationError,
+      isFormInvalid:
+        !!emailError ||
+        !!passwordError ||
+        !!nameError ||
+        !!passwordConfirmationError
     })
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
@@ -55,15 +67,7 @@ const Signup: React.FC<Props> = ({
     e.preventDefault()
 
     try {
-      if (
-        state.isLoading ||
-        state.emailError ||
-        state.passwordError ||
-        state.nameError ||
-        state.passwordConfirmationError ||
-        state.mainError
-      )
-        return
+      if (state.isLoading || state.isFormInvalid) return
 
       setState({ ...state, isLoading: true })
 
@@ -102,19 +106,7 @@ const Signup: React.FC<Props> = ({
             placeholder='Repita sua senha'
           />
 
-          <button
-            data-testid='submit'
-            disabled={
-              !!state.nameError ||
-              !!state.emailError ||
-              !!state.passwordError ||
-              !!state.passwordConfirmationError
-            }
-            className={Styles.submit}
-            type='submit'
-          >
-            Entrar
-          </button>
+          <SubmitButton text='Cadastrar' />
 
           <Link
             data-testid='login-link'

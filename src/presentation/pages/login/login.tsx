@@ -4,7 +4,8 @@ import {
   Footer,
   FormStatus,
   Input,
-  LoginHeader
+  LoginHeader,
+  SubmitButton
 } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-contex'
 import { Validation } from '@/presentation/protocols/validation'
@@ -25,6 +26,7 @@ const Login: React.FC<Props> = ({
   const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: false,
     email: '',
     password: '',
     emailError: '',
@@ -33,10 +35,13 @@ const Login: React.FC<Props> = ({
   })
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError
     })
   }, [state.email, state.password])
 
@@ -44,7 +49,7 @@ const Login: React.FC<Props> = ({
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault()
-    if (state.isLoading || state.emailError || state.passwordError) return
+    if (state.isLoading || state.isFormInvalid) return
 
     setState({ ...state, isLoading: true })
 
@@ -76,14 +81,7 @@ const Login: React.FC<Props> = ({
           <Input type='email' name='email' placeholder='Digite seu email' />
           <Input type='password' name='password' placeholder='Digite a senha' />
 
-          <button
-            data-testid='submit'
-            disabled={!!state.emailError || !!state.passwordError}
-            className={Styles.submit}
-            type='submit'
-          >
-            Enviar
-          </button>
+          <SubmitButton text='Enviar' />
 
           <Link data-testid='signup' to='signup' className={Styles.link}>
             Criar conta

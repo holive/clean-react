@@ -36,3 +36,9 @@ button {
     opacity: 0.9;
   }
 }
+
+&:disabled {
+  background-color: $disabledBackground;
+  pointer-events: none;
+  color: $disabledColor;
+}
