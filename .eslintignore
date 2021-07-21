@@ -7,3 +7,5 @@ dist
 *.scss
 public
 *.scss
+src/main/test
+*.json

@@ -7,9 +7,13 @@
   "extends": [
     "standard-with-typescript",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended"
   ],
-  "plugins": ["react"],
+  "plugins": ["react", "cypress"],
+  "env": {
+    "cypress/globals": true
+  },
   "parserOptions": {
     "project": "./tsconfig.json"
   },
