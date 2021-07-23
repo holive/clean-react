@@ -75,14 +75,8 @@ describe('', () => {
 
     Helper.testChildCount(sut, 'error-wrap', 0)
     Helper.testButtonIsDisabled(sut, 'submit', true)
-
-    const emailStatus = sut.getByTestId('email-status')
-    expect(emailStatus.title).toBe(validationError)
-    expect(emailStatus.textContent).toBe('♼')
-
-    const passwordStatus = sut.getByTestId('password-status')
-    expect(passwordStatus.title).toBe(validationError)
-    expect(passwordStatus.textContent).toBe('♼')
+    Helper.testStatusForField(sut, 'email', validationError)
+    Helper.testStatusForField(sut, 'password', validationError)
   })
 
   test('Should show email error if validation fails', () => {
@@ -95,12 +89,7 @@ describe('', () => {
   test('Should show password error if validation fails', () => {
     const { sut, validationStub } = makeSut()
     validationStub.errorMessage = faker.random.words()
-
     Helper.populateField(sut, 'password')
-
-    const passwordStatus = sut.getByTestId('password-status')
-    expect(passwordStatus.title).toBe(validationStub.errorMessage)
-    expect(passwordStatus.textContent).toBe('♼')
     Helper.testStatusForField(sut, 'password', validationStub.errorMessage)
   })
 
