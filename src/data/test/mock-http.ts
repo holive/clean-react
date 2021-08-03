@@ -6,12 +6,12 @@ import {
   HttpStatusCode
 } from '@/data/protocols/http/http-response'
 
-export const mockPostRequest = (): HttpPostParams<any> => ({
+export const mockPostRequest = (): HttpPostParams => ({
   url: faker.internet.url(),
   body: faker.random.objectElement()
 })
 
-export class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
+export class HttpPostClientSpy<R> implements HttpPostClient<R> {
   constructor(
     public response: HttpResponse<R> = {
       statusCode: HttpStatusCode.ok
@@ -19,9 +19,9 @@ export class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
   ) {}
 
   url?: string
-  body?: T
+  body?: any
 
-  async post(params: HttpPostParams<T>): Promise<HttpResponse<R>> {
+  async post(params: HttpPostParams): Promise<HttpResponse<R>> {
     this.url = params.url
     this.body = params.body
     return this.response
