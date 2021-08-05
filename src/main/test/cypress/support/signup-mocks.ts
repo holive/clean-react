@@ -8,4 +8,7 @@ export const mockUnexpectedError = (): void =>
 export const mockInvalidData = (): void =>
   Helper.mockOk(/signup/, 'POST', { invalid: faker.random.uuid() })
 export const mockOk = (): void =>
-  Helper.mockOk(/signup/, 'POST', { accessToken: faker.random.uuid() })
+  Helper.mockOk(/signup/, 'POST', {
+    accessToken: faker.random.uuid(),
+    name: faker.name.findName()
+  })
