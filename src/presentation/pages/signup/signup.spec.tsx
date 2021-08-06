@@ -183,7 +183,7 @@ describe('SignUp Component', () => {
     Helper.testChildCount(sut, 'error-wrap', 1)
   })
 
-  test('Should call SaveAccessToken on success', async () => {
+  test('Should call UpdateCurrentAccount on success', async () => {
     const { sut, addAccountSpy, updateCurrentAccountMock } = makeSut()
     await simulateValidSubmit(sut)
     expect(updateCurrentAccountMock.account).toBe(addAccountSpy.account)
@@ -191,7 +191,7 @@ describe('SignUp Component', () => {
     expect(history.location.pathname).toBe('/')
   })
 
-  test('Should present error if SaveAccessToken fails', async () => {
+  test('Should present error if UpdateCurrentAccount fails', async () => {
     const { sut, updateCurrentAccountMock } = makeSut()
     const error = new InvalidCredentialsError()
     jest.spyOn(updateCurrentAccountMock, 'save').mockRejectedValueOnce(error)
