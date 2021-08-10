@@ -1,14 +1,13 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { makeLogin } from '@/main/factories/pages/login/login-factory'
-import { makeSignup } from '@/main/factories/pages/signup/signup-factory'
 import { ApiContext } from '@/presentation/contexts'
-import { SurveyList } from '@/presentation/pages'
-import {
-  setCurrentAccountAdapter,
-  getCurrentAccountAdapter
-} from '../adapters/current-account-adapter'
 import { PrivateRoute } from '@/presentation/components'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import React from 'react'
+import {
+  getCurrentAccountAdapter,
+  setCurrentAccountAdapter
+} from '@/main/adapters/current-account-adapter'
+import { makeLogin } from '@/main/factories/pages/login/login-factory'
+import { makeSignup, makeSurveyList } from '@/main/factories/pages'
 
 const Router: React.FC = () => {
   return (
@@ -22,7 +21,7 @@ const Router: React.FC = () => {
         <Switch>
           <Route path='/login' exact component={makeLogin} />
           <Route path='/signup' exact component={makeSignup} />
-          <PrivateRoute path='/' exact component={SurveyList} />
+          <PrivateRoute path='/' exact component={makeSurveyList} />
         </Switch>
       </BrowserRouter>
     </ApiContext.Provider>
