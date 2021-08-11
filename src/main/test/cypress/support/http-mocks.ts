@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-export const mockInvalidCredentialsError = (url: RegExp): void => {
+export const mockUnauthorizedError = (url: RegExp): void => {
   cy.server()
   cy.route({
     method: 'POST',
@@ -12,7 +12,19 @@ export const mockInvalidCredentialsError = (url: RegExp): void => {
   }).as('request')
 }
 
-export const mockUnexpectedError = (url: RegExp, method: string): void => {
+export const mockForbiddenError = (url: RegExp, method: string): void => {
+  cy.server()
+  cy.route({
+    method,
+    url,
+    status: 403,
+    response: {
+      error: faker.random.words()
+    }
+  }).as('request')
+}
+
+export const mockServerError = (url: RegExp, method: string): void => {
   cy.server()
   cy.route({
     method,
@@ -31,17 +43,5 @@ export const mockOk = (url: RegExp, method: string, response: any): void => {
     url,
     status: 200,
     response
-  }).as('request')
-}
-
-export const mockEmailInUseError = (url: RegExp): void => {
-  cy.server()
-  cy.route({
-    method: 'POST',
-    url,
-    status: 403,
-    response: {
-      error: faker.random.words()
-    }
   }).as('request')
 }
