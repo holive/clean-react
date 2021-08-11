@@ -16,4 +16,10 @@ describe('SurveyList', () => {
     cy.wait(0)
     cy.getByTestId('error').should('exist')
   })
+
+  it('Should logout on AccessDeniedError', () => {
+    Http.mockAccessDeniedError()
+    cy.visit('')
+    Helper.testUrl('/login')
+  })
 })
