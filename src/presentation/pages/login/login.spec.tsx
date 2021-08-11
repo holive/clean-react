@@ -13,14 +13,14 @@ import { AuthenticationSpy } from '@/presentation/test/mock-authentication'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { AccountModel } from '@/domain/models'
 import { ApiContext } from '@/presentation/contexts'
+import { Authentication } from '@/domain/usecases'
 
 type SutTypes = {
   sut: RenderResult
   validationStub: ValidationStub
   authenticationSpy: AuthenticationSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: Authentication.Model) => void
 }
 
 type SutParams = {

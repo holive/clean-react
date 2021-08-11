@@ -11,8 +11,8 @@ import { Signup } from '@/presentation/pages'
 import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
 import faker from 'faker'
 import { EmailInUseError } from '@/domain/errors'
-import { AccountModel } from '@/domain/models'
 import { ApiContext } from '@/presentation/contexts'
+import { AddAccount } from '@/domain/usecases'
 
 type SutParams = {
   validationError: string
@@ -21,7 +21,7 @@ type SutParams = {
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: AddAccount.Model) => void
 }
 
 const history = createMemoryHistory({ initialEntries: ['/signup'] })
