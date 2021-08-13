@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - 12
+script:
+  - eslint 'src/**'
+  - npm run test:coveralls
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API
+  app: fordevs-react
+  skip_cleanup: true
