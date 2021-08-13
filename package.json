@@ -5,18 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "dev:base": "webpack-dev-server --config webpack.dev.js",
+    "dev": "npm run dev:base -- --open",
     "build": "webpack --config webpack.prod.js",
     "test": "cross-env NODE_ICU_DATA=node_modules/full-icu jest --passWithNoTests --no-cache --runInBand",
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
     "test:cypress": "cypress open",
+    "test:cypress:run": "cypress run",
+    "test:cypress:ci": "start-server-and-test dev:base http-get://localhost:8080 test:cypress:run",
     "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "start-server-and-test": "^1.11.0",
     "@cypress/webpack-preprocessor": "^5.4.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.6",
